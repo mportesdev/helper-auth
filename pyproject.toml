@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "helper-auth"
+version = "0.1.0"
+description = "Requests authentication using existing helpers"
+readme = "README.md"
+authors = ["Michal Porteš <michalportes1@gmail.com>"]
+license = "MIT"
+homepage = "https://github.com/mportesdev/helper-auth"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
