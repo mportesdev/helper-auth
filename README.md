@@ -1,3 +1,5 @@
+[![helper-auth on PyPI](https://img.shields.io/pypi/v/helper-auth)][PyPI]
+
 # Installation
 
 ```
@@ -44,3 +46,5 @@ response = requests.get(
     auth=auth,
 )
 ```
+
+[PyPI]: https://pypi.org/project/helper-auth
