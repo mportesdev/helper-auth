@@ -21,6 +21,19 @@ def test_default():
     assert request.headers["Authorization"] == "token github_token"
 
 
+def test_space_delimited_helper_output():
+    auth = HelperAuth("helper")
+    request = Request()
+
+    with patch("subprocess.run") as mock_run:
+        mock_run.return_value.stdout = (
+            "username = github_name\npassword = github_token\n"
+        )
+        auth(request)
+
+    assert request.headers["Authorization"] == "token github_token"
+
+
 def test_custom_key():
     auth = HelperAuth("helper", key="token")
     request = Request()

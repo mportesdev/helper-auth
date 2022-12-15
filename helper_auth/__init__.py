@@ -24,8 +24,8 @@ class HelperAuth(AuthBase):
     def _build_header_value(self, command_stdout):
         for line in command_stdout.strip().splitlines():
             key, value = line.split("=", maxsplit=1)
-            if key == self.key:
-                return f"{self.prefix}{value}"
+            if key.strip() == self.key:
+                return f"{self.prefix}{value.strip()}"
         raise KeyError(f"helper did not provide the key {self.key!r}")
 
 
