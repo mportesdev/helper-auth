@@ -26,6 +26,7 @@ class HelperAuth(AuthBase):
             key, value = line.split("=", maxsplit=1)
             if key == self.key:
                 return f"{self.prefix}{value}"
+        raise KeyError(f"helper did not provide the key {self.key!r}")
 
 
 def _ensure_list(command):
