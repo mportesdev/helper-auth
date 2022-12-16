@@ -22,10 +22,13 @@ class HelperAuth(AuthBase):
         return request
 
     def _build_header_value(self, command_stdout):
-        for line in command_stdout.strip().splitlines():
+        return f"{self.prefix}{self._token_from_helper_output(command_stdout)}"
+
+    def _token_from_helper_output(self, helper_output):
+        for line in helper_output.strip().splitlines():
             key, value = line.split("=", maxsplit=1)
             if key.strip() == self.key:
-                return f"{self.prefix}{value.strip()}"
+                return value.strip()
         raise KeyError(f"helper did not provide the key {self.key!r}")
 
 
