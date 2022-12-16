@@ -70,12 +70,17 @@ auth = HelperAuth(["helper", "--option", "arg"])
 ```
 
 
-# Token storage
+## Caching the token
 
-A `HelperAuth` authentication handler never stores the value of the token
-(password) in its internal state. Rather, the helper command is invoked
-on each call to the handler. This is an intentional precaution
-(such that the token cannot be retrieved *ex post* by
-the introspection of the handler).
+By default, a `HelperAuth` authentication handler never stores the value of
+the token (password) in its internal state. Rather, the helper command is
+invoked on each call to the handler. This is an intentional precaution
+(such that the token cannot be retrieved *ex post* by the introspection
+of the handler) but can be expensive. You can override this by
+passing `cache_token=True` to the constructor:
+
+```python
+auth = HelperAuth("helper", cache_token=True)
+```
 
 [PyPI]: https://pypi.org/project/helper-auth
