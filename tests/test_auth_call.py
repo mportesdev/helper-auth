@@ -117,3 +117,27 @@ def test_command_invoked_once_when_token_stored():
         auth(Request())
 
     assert mock_run.call_count == 1
+
+
+def test_empty_line_ignored():
+    auth = HelperAuth("helper")
+    request = Request()
+
+    with patch("subprocess.run") as mock_run:
+        mock_run.return_value.stdout = "username=github_name\n\npassword=github_token\n"
+        auth(request)
+
+    assert request.headers["Authorization"] == "token github_token"
+
+
+def test_unexpected_line_ignored():
+    auth = HelperAuth("helper")
+    request = Request()
+
+    with patch("subprocess.run") as mock_run:
+        mock_run.return_value.stdout = (
+            "# comment\nusername=github_name\npassword=github_token\n"
+        )
+        auth(request)
+
+    assert request.headers["Authorization"] == "token github_token"

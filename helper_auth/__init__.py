@@ -37,7 +37,10 @@ class HelperAuth(AuthBase):
 
     def _token_from_helper_output(self, helper_output):
         for line in helper_output.strip().splitlines():
-            key, value = line.split("=", maxsplit=1)
+            try:
+                key, value = line.split("=", maxsplit=1)
+            except ValueError:
+                continue
             if key.strip() == self.key:
                 return value.strip()
         raise KeyError(f"helper did not provide the key {self.key!r}")
