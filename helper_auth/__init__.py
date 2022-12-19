@@ -14,14 +14,14 @@ class HelperAuth(AuthBase):
         self.header = header
 
     def __call__(self, request):
+        request.headers[self.header] = f"{self.prefix}{self._get_token()}"
+        return request
+
+    def _get_token(self):
         helper_output = subprocess.run(
             self.command, capture_output=True, check=True, encoding="utf-8", text=True
         ).stdout
-
-        request.headers[
-            self.header
-        ] = f"{self.prefix}{self._token_from_helper_output(helper_output)}"
-        return request
+        return self._token_from_helper_output(helper_output)
 
     def _token_from_helper_output(self, helper_output):
         for line in helper_output.strip().splitlines():
