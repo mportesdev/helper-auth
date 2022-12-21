@@ -1,19 +1,11 @@
-from pathlib import Path
-
-import pytest
+from pytest_cases import parametrize_with_cases
 
 from helper_auth import _ensure_list
 
 
-@pytest.mark.parametrize(
-    "command, expected",
-    (
-        pytest.param("helper", ["helper"], id="str"),
-        pytest.param("helper --arg", ["helper", "--arg"], id="str with arg"),
-        pytest.param(["helper"], ["helper"], id="list"),
-        pytest.param(["helper", "--arg"], ["helper", "--arg"], id="list with arg"),
-        pytest.param(Path("/etc/helper"), ["/etc/helper"], id="path-like"),
-    ),
-)
-def test_ensure_list(command, expected):
-    assert _ensure_list(command) == expected
+@parametrize_with_cases("command")
+def test_ensure_list(command, current_cases):
+    if "with_arg" in current_cases["command"].id:
+        assert _ensure_list(command) == ["helper", "--option"]
+    else:
+        assert _ensure_list(command) == ["helper"]
