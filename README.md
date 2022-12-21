@@ -1,4 +1,4 @@
-[![helper-auth on PyPI](https://img.shields.io/pypi/v/helper-auth)][PyPI]
+[![helper-auth on PyPI][PyPI badge]][PyPI page]
 
 
 # Installation
@@ -11,15 +11,14 @@ pip install helper-auth
 # Usage
 
 Objects of the `HelperAuth` class are intended to be used as custom
-authentication handlers as per the
-[Requests documentation](https://requests.readthedocs.io/en/latest/user/authentication/#new-forms-of-authentication).
+authentication handlers as per the [Requests documentation].
 
 
 ## Default scenario
 
 Suppose you have an existing GitHub personal access token, and a
-[Git credential helper](https://git-scm.com/docs/gitcredentials#_custom_helpers)
-already set up for Git to authenticate to GitHub using this token as
+[Git credential helper] already set up for Git
+to authenticate to GitHub using this token as
 the password. This helper prints the following to standard output:
 
 ```
@@ -83,4 +82,7 @@ passing `cache_token=True` to the constructor:
 auth = HelperAuth("helper", cache_token=True)
 ```
 
-[PyPI]: https://pypi.org/project/helper-auth
+[PyPI badge]: https://img.shields.io/pypi/v/helper-auth
+[PyPI page]: https://pypi.org/project/helper-auth
+[Requests documentation]: https://requests.readthedocs.io/en/latest/user/authentication/#new-forms-of-authentication
+[Git credential helper]: https://git-scm.com/docs/gitcredentials#_custom_helpers
