@@ -1,24 +1,14 @@
 import pytest
+from pytest_cases import parametrize_with_cases
 
 from helper_auth import HelperAuth
+from . import HelperOutputCases
 
 
-def test_default():
+@parametrize_with_cases("helper_output", cases=HelperOutputCases)
+def test_default_key(helper_output):
     auth = HelperAuth("helper")
-    assert (
-        auth._token_from_helper_output("username=github_name\npassword=github_token\n")
-        == "github_token"
-    )
-
-
-def test_space_delimited_helper_output():
-    auth = HelperAuth("helper")
-    assert (
-        auth._token_from_helper_output(
-            "username = github_name\npassword = github_token\n"
-        )
-        == "github_token"
-    )
+    assert auth._token_from_helper_output(helper_output) == "github_token"
 
 
 def test_custom_key():
@@ -33,23 +23,3 @@ def test_missing_key_raises_error():
     auth = HelperAuth("helper")
     with pytest.raises(KeyError, match="helper did not provide the key 'password'"):
         auth._token_from_helper_output("username=github_name\nauth=github_token\n")
-
-
-def test_empty_line_ignored():
-    auth = HelperAuth("helper")
-    assert (
-        auth._token_from_helper_output(
-            "username=github_name\n\npassword=github_token\n"
-        )
-        == "github_token"
-    )
-
-
-def test_unexpected_line_ignored():
-    auth = HelperAuth("helper")
-    assert (
-        auth._token_from_helper_output(
-            "# comment\nusername=github_name\npassword=github_token\n"
-        )
-        == "github_token"
-    )

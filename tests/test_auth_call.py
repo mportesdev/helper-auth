@@ -1,8 +1,10 @@
 from unittest.mock import patch
 
 import pytest
+from pytest_cases import parametrize_with_cases
 
 from helper_auth import HelperAuth
+from . import HelperOutputCases
 
 
 class Request:
@@ -10,25 +12,13 @@ class Request:
         self.headers = {}
 
 
-def test_default():
+@parametrize_with_cases("helper_output", cases=HelperOutputCases)
+def test_default_key(helper_output):
     auth = HelperAuth("helper")
     request = Request()
 
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value.stdout = "username=github_name\npassword=github_token\n"
-        auth(request)
-
-    assert request.headers["Authorization"] == "token github_token"
-
-
-def test_space_delimited_helper_output():
-    auth = HelperAuth("helper")
-    request = Request()
-
-    with patch("subprocess.run") as mock_run:
-        mock_run.return_value.stdout = (
-            "username = github_name\npassword = github_token\n"
-        )
+        mock_run.return_value.stdout = helper_output
         auth(request)
 
     assert request.headers["Authorization"] == "token github_token"
@@ -117,27 +107,3 @@ def test_command_invoked_once_when_token_stored():
         auth(Request())
 
     assert mock_run.call_count == 1
-
-
-def test_empty_line_ignored():
-    auth = HelperAuth("helper")
-    request = Request()
-
-    with patch("subprocess.run") as mock_run:
-        mock_run.return_value.stdout = "username=github_name\n\npassword=github_token\n"
-        auth(request)
-
-    assert request.headers["Authorization"] == "token github_token"
-
-
-def test_unexpected_line_ignored():
-    auth = HelperAuth("helper")
-    request = Request()
-
-    with patch("subprocess.run") as mock_run:
-        mock_run.return_value.stdout = (
-            "# comment\nusername=github_name\npassword=github_token\n"
-        )
-        auth(request)
-
-    assert request.headers["Authorization"] == "token github_token"
