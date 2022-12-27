@@ -67,7 +67,7 @@ def test_missing_key_raises_error():
             auth(request)
 
 
-def test_token_not_stored_by_default():
+def test_token_not_cached_by_default():
     auth = HelperAuth("helper")
 
     with patch("subprocess.run") as mock_run:
@@ -77,18 +77,7 @@ def test_token_not_stored_by_default():
     assert auth._token is None
 
 
-def test_command_always_invoked_by_default():
-    auth = HelperAuth("helper")
-
-    with patch("subprocess.run") as mock_run:
-        mock_run.return_value.stdout = "username=github_name\npassword=github_token\n"
-        auth(Request())
-        auth(Request())
-
-    assert mock_run.call_count == 2
-
-
-def test_token_stored_optionally():
+def test_token_cached_optionally():
     auth = HelperAuth("helper", cache_token=True)
 
     with patch("subprocess.run") as mock_run:
@@ -96,14 +85,3 @@ def test_token_stored_optionally():
         auth(Request())
 
     assert auth._token == "github_token"
-
-
-def test_command_invoked_once_when_token_stored():
-    auth = HelperAuth("helper", cache_token=True)
-
-    with patch("subprocess.run") as mock_run:
-        mock_run.return_value.stdout = "username=github_name\npassword=github_token\n"
-        auth(Request())
-        auth(Request())
-
-    assert mock_run.call_count == 1
