@@ -1,7 +1,12 @@
 import contextlib
 import subprocess
 
-from requests.auth import AuthBase
+try:
+    from requests.auth import AuthBase
+except ModuleNotFoundError:
+
+    class AuthBase:
+        """Base class for authentication handlers."""
 
 
 class HelperAuth(AuthBase):

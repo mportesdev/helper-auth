@@ -9,12 +9,15 @@ homepage = "https://github.com/mportesdev/helper-auth"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-requests = "^2"
+requests = {version = "^2", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 tox = "^4"
 pytest = "^7"
 pytest-cases = "^3"
+
+[tool.poetry.extras]
+requests = ["requests"]
 
 [build-system]
 requires = ["poetry-core"]
