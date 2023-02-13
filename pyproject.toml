@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "helper-auth"
-version = "0.3.0"
+version = "0.4.0"
 description = "Request authentication using existing credential helpers."
 readme = "README.md"
 authors = ["Michal Porteš <michalportes1@gmail.com>"]

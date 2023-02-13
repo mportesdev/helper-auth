@@ -75,11 +75,19 @@ By default, a `HelperAuth` authentication handler never stores the value of
 the token (password) in its internal state. Rather, the helper command is
 invoked on each call to the handler. This is an intentional precaution
 (such that the token cannot be retrieved *ex post* by the introspection
-of the handler) but can be expensive. You can override this by
-passing `cache_token=True` to the constructor:
+of the handler) but it can also be unnecessarily expensive if the handler
+is to be called repeatedly, e.g. when making many simultaneous API calls.
+You can override this behavior by passing `cache_token=True` to the
+constructor:
 
 ```python
 auth = HelperAuth("helper", cache_token=True)
+```
+
+The cached token can then be cleared anytime by calling
+
+```python
+auth.clear_cache()
 ```
 
 [PyPI badge]: https://img.shields.io/pypi/v/helper-auth

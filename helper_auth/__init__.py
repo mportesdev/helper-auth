@@ -50,6 +50,10 @@ class HelperAuth(AuthBase):
                 return value.strip()
         raise KeyError(f"helper did not provide the key {self._key!r}")
 
+    def clear_cache(self):
+        """Clear the cached token."""
+        self._token = None
+
 
 def _ensure_list(command):
     with contextlib.suppress(AttributeError):
