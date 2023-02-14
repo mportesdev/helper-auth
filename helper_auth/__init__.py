@@ -9,6 +9,31 @@ except ModuleNotFoundError:
 
 
 class HelperAuth(AuthBase):
+    """Request authentication handler.
+
+    `command` is the helper command to invoke. The first positional
+    argument represents the executable command or program itself and
+    can be passed as a string or a path-like object. The remaining
+    positional arguments represent the command-line arguments and must
+    be passed as strings.
+
+    As a shortcut, a command with command-line arguments can also be
+    passed as a single string, e.g. ``HelperAuth("helper --option arg")``
+    is equivalent to ``HelperAuth("helper", "--option", "arg")``.
+
+    `key` is the key string to search for in the "key=value" pairs
+    in the helper output. Default is "password".
+
+    `prefix` is the string to which the token value will be added.
+    Default is "token ".
+
+    `header` is the request header that will be modified by the
+    handler. Default is "Authorization".
+
+    `cache_token` allows to cache the token value optionally to avoid
+    repeated invocation of the helper command. Default is False.
+    """
+
     def __init__(
         self,
         *command,
