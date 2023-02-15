@@ -46,26 +46,30 @@ response = requests.get("https://api.github.com/user/repos", auth=auth)
 
 ## Specifying the helper command
 
-Simple helper command with no command-line arguments can be a string or
-a path-like object.
+The helper command can be specified as a single string, or as separate
+strings if it contains command-line arguments. The following are all allowed:
 
 ```python
 auth = HelperAuth("helper")
 ```
 
 ```python
-auth = HelperAuth(Path("helper"))
-```
-
-If the helper command contains command-line arguments, it can be a string or
-a list of strings.
-
-```python
 auth = HelperAuth("helper --option arg")
 ```
 
 ```python
-auth = HelperAuth(["helper", "--option", "arg"])
+auth = HelperAuth("helper", "--option", "arg")
+```
+
+In addition, the first positional argument `command` can be a path-like
+object:
+
+```python
+auth = HelperAuth(Path("helper"))
+```
+
+```python
+auth = HelperAuth(Path("helper"), "--option", "arg")
 ```
 
 

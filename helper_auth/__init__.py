@@ -1,4 +1,3 @@
-import contextlib
 import subprocess
 
 try:
@@ -12,13 +11,13 @@ except ModuleNotFoundError:
 class HelperAuth(AuthBase):
     def __init__(
         self,
-        command,
+        *command,
         key="password",
         prefix="token ",
         header="Authorization",
         cache_token=False,
     ):
-        self._command = _ensure_list(command)
+        self._command = _ensure_list(*command)
         self._key = key
         self._prefix = prefix
         self._header = header
@@ -55,11 +54,10 @@ class HelperAuth(AuthBase):
         self._token = None
 
 
-def _ensure_list(command):
-    with contextlib.suppress(AttributeError):
-        # path-like: convert to string
-        command = command.__fspath__()
-    with contextlib.suppress(AttributeError):
-        # string: split to list
-        command = command.split()
-    return command
+def _ensure_list(command, *args):
+    try:
+        # if command is path-like, convert to filesystem representation
+        return [command.__fspath__(), *args]
+    except AttributeError:
+        # otherwise split to handle single-string commands such as "helper --option"
+        return [*command.split(), *args]
