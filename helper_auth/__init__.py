@@ -70,8 +70,8 @@ class HelperAuth(AuthBase):
                 key, value = line.split("=", maxsplit=1)
             except ValueError:
                 continue
-            if key.strip() == self._key:
-                return value.strip()
+            if key == self._key:
+                return value
         raise KeyError(f"helper did not provide the key {self._key!r}")
 
     def clear_cache(self):
