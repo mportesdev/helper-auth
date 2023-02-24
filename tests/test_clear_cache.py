@@ -6,7 +6,7 @@ from helper_auth import HelperAuth
 def test_clear_cache():
     auth = HelperAuth("helper", cache_token=True)
     with patch("subprocess.run") as mock_run:
-        mock_run.return_value.stdout = "username=github_name\npassword=github_token\n"
+        mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=GITHUB_TOKEN\n"
         auth._get_token()
         mock_run.assert_called_once()
 

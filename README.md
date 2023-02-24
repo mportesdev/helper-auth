@@ -29,12 +29,12 @@ to standard output:
 
 ```
 $ git credential-github
-username=your_github_username
-password=your_github_token
+username=YOUR_GITHUB_USERNAME
+password=YOUR_GITHUB_TOKEN
 ```
 
 You want to use the same token to make GitHub API calls using the Requests
-library. The API expects a `token your_github_token` string as the value of
+library. The API expects a `token YOUR_GITHUB_TOKEN` string as the value of
 your request's `Authorization` header.
 
 You can use `HelperAuth` with its default settings:
