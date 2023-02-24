@@ -64,3 +64,10 @@ def test_command_invoked_only_once_when_token_cached():
         mock_run.assert_called_once()
         auth._get_token()
         mock_run.assert_called_once()
+
+
+def test_token_containing_equals_sign():
+    auth = HelperAuth("helper")
+    with patch("subprocess.run") as mock_run:
+        mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=RxVlf=E9aRU+\n"
+        assert auth._get_token() == "RxVlf=E9aRU+"

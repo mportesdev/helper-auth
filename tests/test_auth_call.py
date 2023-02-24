@@ -85,3 +85,14 @@ def test_token_cached_optionally():
         auth(Request())
 
     assert auth._token == "GITHUB_TOKEN"
+
+
+def test_token_containing_equals_sign():
+    auth = HelperAuth("helper")
+    request = Request()
+
+    with patch("subprocess.run") as mock_run:
+        mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=RxVlf=E9aRU+\n"
+        auth(request)
+
+    assert request.headers["Authorization"] == "token RxVlf=E9aRU+"

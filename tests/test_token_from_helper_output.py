@@ -23,3 +23,11 @@ def test_missing_key_raises_error():
     auth = HelperAuth("helper")
     with pytest.raises(KeyError, match="helper did not provide the key 'password'"):
         auth._token_from_helper_output("username=GITHUB_NAME\nauth=GITHUB_TOKEN\n")
+
+
+def test_token_containing_equals_sign():
+    auth = HelperAuth("helper")
+    assert (
+        auth._token_from_helper_output("username=GITHUB_NAME\npassword=RxVlf=E9aRU+\n")
+        == "RxVlf=E9aRU+"
+    )
