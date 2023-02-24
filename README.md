@@ -51,19 +51,21 @@ response = requests.get("https://api.github.com/user", auth=auth)
 
 ## Specifying the helper command
 
-The helper command can be specified as one or more positional arguments.
-The following are all valid:
+The helper command can be specified as one or more positional arguments:
 
 ```python
 auth = HelperAuth("helper")
 ```
 
 ```python
-auth = HelperAuth("helper --option arg")
+auth = HelperAuth("helper", "--option", "arg")
 ```
 
+As a shortcut, a command with command-line arguments can also be passed
+as a single string:
+
 ```python
-auth = HelperAuth("helper", "--option", "arg")
+auth = HelperAuth("helper --option arg")
 ```
 
 In addition, the first positional argument can be a path-like object:
