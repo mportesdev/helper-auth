@@ -8,6 +8,9 @@ except ModuleNotFoundError:
         """Base class for authentication handlers."""
 
 
+__version__ = "0.5.0"
+
+
 class HelperAuth(AuthBase):
     """Request authentication handler.
 
