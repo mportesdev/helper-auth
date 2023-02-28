@@ -25,7 +25,7 @@ class HelperAuth(AuthBase):
     `key` is the key string to search for in the "key=value" pairs
     in the helper output. Default is "password".
 
-    `scheme` specifies the authentication scheme. Default is "token".
+    `scheme` specifies the authentication scheme. Default is "Bearer".
 
     `header` is the request header that will be modified by the
     handler. Default is "Authorization".
@@ -39,7 +39,7 @@ class HelperAuth(AuthBase):
         command,
         *args,
         key="password",
-        scheme="token",
+        scheme="Bearer",
         header="Authorization",
         cache_token=False,
     ):

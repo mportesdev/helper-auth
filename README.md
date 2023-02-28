@@ -26,8 +26,8 @@ password=YOUR_GITHUB_TOKEN
 ```
 
 You want to use the same token to make GitHub API calls using the Requests
-library. The API expects a `token YOUR_GITHUB_TOKEN` string as the value of
-your request's `Authorization` header.
+library. The API expects the field `Authorization: Bearer YOUR_GITHUB_TOKEN` in
+your request's headers.
 
 You can use `HelperAuth` with its default settings:
 

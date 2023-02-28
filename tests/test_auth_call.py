@@ -21,7 +21,7 @@ def test_default_key(helper_output):
         mock_run.return_value.stdout = helper_output
         auth(request)
 
-    assert request.headers["Authorization"] == "token GITHUB_TOKEN"
+    assert request.headers["Authorization"] == "Bearer GITHUB_TOKEN"
 
 
 def test_custom_key():
@@ -32,18 +32,18 @@ def test_custom_key():
         mock_run.return_value.stdout = "username=GITHUB_NAME\ntoken=GITHUB_TOKEN\n"
         auth(request)
 
-    assert request.headers["Authorization"] == "token GITHUB_TOKEN"
+    assert request.headers["Authorization"] == "Bearer GITHUB_TOKEN"
 
 
 def test_custom_scheme():
-    auth = HelperAuth("helper", scheme="Bearer")
+    auth = HelperAuth("helper", scheme="token")
     request = Request()
 
     with patch("subprocess.run") as mock_run:
         mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=GITHUB_TOKEN\n"
         auth(request)
 
-    assert request.headers["Authorization"] == "Bearer GITHUB_TOKEN"
+    assert request.headers["Authorization"] == "token GITHUB_TOKEN"
 
 
 def test_custom_header():
@@ -54,7 +54,7 @@ def test_custom_header():
         mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=GITHUB_TOKEN\n"
         auth(request)
 
-    assert request.headers["X-Auth"] == "token GITHUB_TOKEN"
+    assert request.headers["X-Auth"] == "Bearer GITHUB_TOKEN"
 
 
 def test_missing_key_raises_error():
@@ -95,4 +95,4 @@ def test_token_containing_equals_sign():
         mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=RxVlf=E9aRU+\n"
         auth(request)
 
-    assert request.headers["Authorization"] == "token RxVlf=E9aRU+"
+    assert request.headers["Authorization"] == "Bearer RxVlf=E9aRU+"
