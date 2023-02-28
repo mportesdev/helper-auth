@@ -11,14 +11,6 @@ the [Requests] library, as suggested in its [documentation].
 pip install helper-auth
 ```
 
-Please note that while `helper-auth` is supposed to be used in
-environments with `requests` installed, it does not depend on it.
-To install `requests` together with `helper-auth`, specify it as an extra:
-
-```
-pip install 'helper-auth[requests]'
-```
-
 
 # Usage
 

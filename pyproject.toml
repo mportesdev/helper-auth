@@ -14,7 +14,6 @@ keywords = ["http", "requests", "credentials"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-requests = {version = "^2", optional = true}
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7"
@@ -23,9 +22,6 @@ pytest-cases = "^3"
 [tool.poetry.group.dev.dependencies]
 tox = "^4"
 pre-commit = {version = "^3", python = "^3.8"}
-
-[tool.poetry.extras]
-requests = ["requests"]
 
 [build-system]
 requires = ["poetry-core"]
