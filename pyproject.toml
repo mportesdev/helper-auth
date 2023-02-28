@@ -6,6 +6,11 @@ readme = "README.md"
 authors = ["Michal Porteš <michalportes1@gmail.com>"]
 license = "MIT"
 homepage = "https://github.com/mportesdev/helper-auth"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Operating System :: OS Independent"
+]
+keywords = ["http", "requests", "credentials"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
