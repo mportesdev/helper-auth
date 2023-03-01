@@ -14,11 +14,9 @@ __version__ = "0.6.0"
 class HelperAuth(AuthBase):
     """Request authentication handler.
 
-    `command` is the helper command to invoke. The first positional
-    argument represents the executable command or program itself and
-    can be passed as a string or a path-like object. The remaining
-    positional arguments represent the command-line arguments and must
-    be passed as strings.
+    `command` is the helper command to invoke. It may be a string or
+    a path-like object. `args` are optional command-line arguments for
+    this command.
 
     As a shortcut, a command with command-line arguments can also be
     passed as a single string, e.g. ``HelperAuth("helper --option arg")``
@@ -39,13 +37,14 @@ class HelperAuth(AuthBase):
 
     def __init__(
         self,
-        *command,
+        command,
+        *args,
         key="password",
         prefix="token ",
         header="Authorization",
         cache_token=False,
     ):
-        self._command = _ensure_list(*command)
+        self._command = _ensure_list(command, *args)
         self._key = key
         self._prefix = prefix
         self._header = header
