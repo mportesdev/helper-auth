@@ -1,4 +1,4 @@
-import sys
-
-if sys.version_info < (3, 11):
+try:
+    import tomllib
+except ModuleNotFoundError:
     collect_ignore = ["test_version.py"]
