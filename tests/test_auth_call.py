@@ -35,8 +35,8 @@ def test_custom_key():
     assert request.headers["Authorization"] == "token GITHUB_TOKEN"
 
 
-def test_custom_prefix():
-    auth = HelperAuth("helper", prefix="Bearer")
+def test_custom_scheme():
+    auth = HelperAuth("helper", scheme="Bearer")
     request = Request()
 
     with patch("subprocess.run") as mock_run:

@@ -25,8 +25,7 @@ class HelperAuth(AuthBase):
     `key` is the key string to search for in the "key=value" pairs
     in the helper output. Default is "password".
 
-    `prefix` is the string to which the token value will be added.
-    Default is "token".
+    `scheme` specifies the authentication scheme. Default is "token".
 
     `header` is the request header that will be modified by the
     handler. Default is "Authorization".
@@ -40,19 +39,19 @@ class HelperAuth(AuthBase):
         command,
         *args,
         key="password",
-        prefix="token",
+        scheme="token",
         header="Authorization",
         cache_token=False,
     ):
         self._command = _ensure_list(command, *args)
         self._key = key
-        self._prefix = prefix
+        self._scheme = scheme
         self._header = header
         self._cache_token = cache_token
         self._token = None
 
     def __call__(self, request):
-        request.headers[self._header] = f"{self._prefix} {self._get_token()}"
+        request.headers[self._header] = f"{self._scheme} {self._get_token()}"
         return request
 
     def _get_token(self):
