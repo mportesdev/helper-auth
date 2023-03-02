@@ -26,7 +26,7 @@ class HelperAuth(AuthBase):
     in the helper output. Default is "password".
 
     `prefix` is the string to which the token value will be added.
-    Default is "token ".
+    Default is "token".
 
     `header` is the request header that will be modified by the
     handler. Default is "Authorization".
@@ -40,7 +40,7 @@ class HelperAuth(AuthBase):
         command,
         *args,
         key="password",
-        prefix="token ",
+        prefix="token",
         header="Authorization",
         cache_token=False,
     ):
@@ -52,7 +52,7 @@ class HelperAuth(AuthBase):
         self._token = None
 
     def __call__(self, request):
-        request.headers[self._header] = f"{self._prefix}{self._get_token()}"
+        request.headers[self._header] = f"{self._prefix} {self._get_token()}"
         return request
 
     def _get_token(self):

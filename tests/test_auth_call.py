@@ -36,7 +36,7 @@ def test_custom_key():
 
 
 def test_custom_prefix():
-    auth = HelperAuth("helper", prefix="Bearer ")
+    auth = HelperAuth("helper", prefix="Bearer")
     request = Request()
 
     with patch("subprocess.run") as mock_run:
