@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 try:
@@ -81,9 +82,4 @@ class HelperAuth(AuthBase):
 
 
 def _ensure_list(command, *args):
-    try:
-        # if command is path-like, convert to filesystem representation
-        return [command.__fspath__(), *args]
-    except AttributeError:
-        # otherwise split to handle single-string commands such as "helper --option"
-        return [*command.split(), *args]
+    return [*os.fspath(command).split(), *args]
