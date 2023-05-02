@@ -54,7 +54,7 @@ auth = HelperAuth("helper", "--option", "arg")
 ```
 
 As a shortcut, a command with command-line arguments can also be passed
-as a single string:
+as single string (this form is used in the code snippet above):
 
 ```python
 auth = HelperAuth("helper --option arg")
@@ -74,11 +74,13 @@ auth = HelperAuth(Path("helper"), "--option", "arg")
 ## Caching the token
 
 By default, a `HelperAuth` object never stores the value of the token
-(password) in its internal state. Rather, the helper command is invoked
-each time the object is called. This is an intentional precaution (such
+in its internal state. Rather, the helper command is invoked
+each time the auth object is called. This is an intentional precaution (such
 that the token cannot be retrieved *ex post* by the introspection of the
-`HelperAuth` object) but it can also be unnecessarily expensive if the object
-is to be called repeatedly, e.g. when making many simultaneous API calls.
+auth object) but it can also be unnecessarily expensive in situations
+where such precaution is not necessary and the auth object is to
+be called repeatedly, e.g. when making many simultaneous API calls.
+
 You can override this behavior by passing `cache_token=True` to the
 constructor:
 
