@@ -1,5 +1,5 @@
 import os
-import subprocess
+import subprocess  # nosec: B404
 
 try:
     from requests.auth import AuthBase
@@ -60,7 +60,7 @@ class HelperAuth(AuthBase):
             return self._token
         helper_output = subprocess.run(
             self._command, capture_output=True, check=True, encoding="utf-8", text=True
-        ).stdout
+        ).stdout  # nosec: B603
         token = self._token_from_helper_output(helper_output)
         if self._cache_token:
             self._token = token

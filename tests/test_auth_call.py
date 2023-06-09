@@ -84,7 +84,7 @@ def test_token_cached_optionally():
         mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=GITHUB_TOKEN\n"
         auth(Request())
 
-    assert auth._token == "GITHUB_TOKEN"
+    assert auth._token == "GITHUB_TOKEN"  # nosec: B105
 
 
 def test_token_containing_equals_sign():

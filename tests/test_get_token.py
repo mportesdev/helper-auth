@@ -53,7 +53,7 @@ def test_token_cached_optionally():
     with patch("subprocess.run") as mock_run:
         mock_run.return_value.stdout = "username=GITHUB_NAME\npassword=GITHUB_TOKEN\n"
         auth._get_token()
-    assert auth._token == "GITHUB_TOKEN"
+    assert auth._token == "GITHUB_TOKEN"  # nosec: B105
 
 
 def test_command_invoked_only_once_when_token_cached():
