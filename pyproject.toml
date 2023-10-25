@@ -19,5 +19,12 @@ python = "^3.8"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.coverage.run]
+branch = true
+source = ["helper_auth"]
+
+[tool.coverage.report]
+show_missing = true
+
 [tool.bandit.assert_used]
 skips = ["tests/*"]
