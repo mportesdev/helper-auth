@@ -1,6 +1,6 @@
 repos:
-- repo: https://github.com/psf/black
-  rev: 23.9.1
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 23.10.1
   hooks:
   - id: black
     args: ["--check", "--diff"]
@@ -9,3 +9,8 @@ repos:
   hooks:
   - id: bandit
     args: ["--configfile=pyproject.toml"]
+- repo: https://github.com/PyCQA/isort
+  rev: 5.12.0
+  hooks:
+    - id: isort
+      args: ["--check", "--diff"]
